@@ -44,11 +44,18 @@ int load1=1, load2=1, load3=1, load4=1, Power;
 #define Relay2  33 //GPIO 5
 #define Relay3  26 //GPIO 4
 #define Relay4  27 //GPIO 0
-
+int relay1stat=0;
+int relay2stat=0;
+int relay3stat=0;
+int relay4stat=0;
 int selectedItem = 0;
 int Screen=1;
 unsigned long last1;
 
+void relay1info();
+void relay2info();
+void relay3info();
+void relay4info();
 void updateValue();
 void Relays();
 void sendValue();
@@ -117,7 +124,7 @@ void setup() {
   listFiles(); // Lists the files so you can see what is in the SPIFFS
   tft.loadFont("THNiramitAS-36"); 
   dht.begin();
-  
+  homemenu();
   
 }
 
@@ -133,12 +140,22 @@ void loop() {
       if(Screen == 1){
         if(millis() - last2 >= 3000){
         last2 = millis();
-        sensorupdate();
+        sensorupdate(); //write LCD
+        sendValue();  //send data to RTDB
       }
+      }
+      if(Screen == 2){
+        if(millis() - last2 >= 3000){
+        last2 = millis();
+        updateValue();  //Read data from RTDB
+        relay1info(); 
+        relay2info(); 
+        relay3info(); 
+        relay4info(); 
+        }
       }
     }
   }
- 
 }
 void checkmenu(){
   switch(selectedItem){
@@ -188,16 +205,16 @@ void sensorupdate(){
   Serial.print(F("%  Temperature: "));
   Serial.print(t);
   Serial.print(F("°C "));
-  tft.setTextColor(TFT_BLACK, bg_color);
+  tft.setTextColor(TFT_BLACK, TFT_WHITE);
   tft.setTextPadding(138);
   String humi = String(h)+String(" %");
   String tem = String(t)+String(" °C");
   tft.drawString(tem, 342, 135); 
   tft.drawString(humi, 342, 216); 
   if(WiFi.status() == WL_CONNECTED){
-    tft.drawString("Connect", 245, 290);
+    tft.drawString("Connect", 245, 265);
   }else{
-    tft.drawString("Not Connect", 245, 290);
+    tft.drawString("Not Connect", 245, 265);
   }
 }
 
@@ -206,8 +223,8 @@ void sensorupdate(){
 void updateValue(){
   if (Firebase.RTDB.getInt(&fbdo, "/devices/food")) {
       if (fbdo.dataType() == "int") {
-        load1 = fbdo.intData();
-        Serial.println("Food : "+String(load1));
+        relay1stat = fbdo.intData();
+        Serial.println("Food : "+String(relay1stat));
       }
     }
     else {
@@ -216,8 +233,8 @@ void updateValue(){
     
     if (Firebase.RTDB.getInt(&fbdo, "/devices/water")) {
       if (fbdo.dataType() == "int") {
-        load2 = fbdo.intData();
-        Serial.println("water : "+String(load2));
+        relay2stat = fbdo.intData();
+        Serial.println("water : "+String(relay2stat));
       }
     }
     else {
@@ -225,8 +242,8 @@ void updateValue(){
     }
     if (Firebase.RTDB.getInt(&fbdo, "/devices/fanl")) {
       if (fbdo.dataType() == "int") {
-        load3 = fbdo.intData();
-        Serial.println("fanl : "+String(load3));
+        relay3stat = fbdo.intData();
+        Serial.println("fanl : "+String(relay3stat));
       }
     }
     else {
@@ -235,8 +252,8 @@ void updateValue(){
     
     if (Firebase.RTDB.getInt(&fbdo, "/devices/fanr")) {
       if (fbdo.dataType() == "int") {
-        load4 = fbdo.intData();
-        Serial.println("fanr : "+String(load4));
+        relay4stat = fbdo.intData();
+        Serial.println("fanr : "+String(relay4stat));
       }
     }
     else {
@@ -297,3 +314,83 @@ void sendValue(){
       Serial.println("REASON: " + fbdo.errorReason());
     }
 }
+
+void relay1info()
+ {
+   if(relay1stat!=1)
+  {
+    tft.setTextColor(TFT_BLACK,TFT_WHITE);
+    digitalWrite(Relay1,0);
+    tft.setTextPadding(138);
+    tft.drawString("OFF", 320, 120); 
+    
+  }
+  else
+  {
+    tft.setTextColor(TFT_BLACK,TFT_WHITE);
+    digitalWrite(Relay1,1);
+    tft.setTextPadding(138);
+    tft.drawString("ON", 320, 120); 
+    
+  }
+ }
+
+ void relay2info()
+ {
+   if(relay2stat!=1)
+  {
+    tft.setTextColor(TFT_BLACK,TFT_WHITE);
+    digitalWrite(Relay2,0);
+    tft.setTextPadding(138);
+    tft.drawString("OFF", 320, 170); 
+    
+  }
+  else
+  {
+    tft.setTextColor(TFT_BLACK,TFT_WHITE);
+    digitalWrite(Relay2,1);
+    tft.setTextPadding(138);
+    tft.drawString("ON", 320, 170); 
+    
+  }
+ }
+
+void relay3info()
+{
+   if(relay3stat!=1)
+  {
+    tft.setTextColor(TFT_BLACK,TFT_WHITE);
+    digitalWrite(Relay3,0);
+    tft.setTextPadding(138);
+    tft.drawString("OFF", 320, 208); 
+    
+  }
+  else
+  {
+    tft.setTextColor(TFT_BLACK,TFT_WHITE);
+    digitalWrite(Relay3,1);
+    tft.setTextPadding(138);
+    tft.drawString("ON", 320, 208); 
+    
+  }
+ }
+
+ void relay4info()
+{
+   if(relay4stat!=1)
+  {
+    tft.setTextColor(TFT_BLACK,TFT_WHITE);
+    digitalWrite(Relay4,0);
+    tft.setTextPadding(138);
+    tft.drawString("OFF", 320, 255); 
+    
+  }
+  else
+  {
+    tft.setTextColor(TFT_BLACK,TFT_WHITE);
+    digitalWrite(Relay4,1);
+    tft.setTextPadding(138);
+    tft.drawString("ON", 320, 255); 
+    
+  }
+ }
