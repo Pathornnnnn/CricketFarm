@@ -29,10 +29,10 @@ DHT dht(DHTPIN, DHTTYPE);
 #define WIFI_PASSWORD "n68q34aK"
 
 // Insert Firebase project API Key
-#define API_KEY "AIzaSyC108mRatpnA0k_4GQhQQ1_RXNyn-obIu4"
+#define API_KEY "xxx"
 
 // Insert RTDB URLefine the RTDB URL */
-#define DATABASE_URL "https://smartfarm-cricket-default-rtdb.asia-southeast1.firebasedatabase.app/" 
+#define DATABASE_URL "xxx" 
 FirebaseData fbdo;
 
 FirebaseAuth auth;
