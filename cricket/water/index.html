@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food and Water Level Indicators</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="Level">
+        <div class="bottle food-bottle">
+            <h2>Food Bottle</h2>
+            <div class="water" id="foodWater"></div>
+            <div class="indicator food-indicator" style="top: 0;"></div>
+            <div class="indicator food-indicator" style="top: 25%;"></div>
+            <div class="indicator food-indicator" style="top: 50%;"></div>
+            <div class="indicator food-indicator" style="top: 75%;"></div>
+            <div class="indicator food-indicator" style="top: 100%;"></div>
+        </div>
+
+        <div class="bottle water-bottle">
+            <h2>Water Bottle</h2>
+            <div class="water" id="waterWater"></div>
+            <div class="indicator water-indicator" style="top: 0;"></div>
+            <div class="indicator water-indicator" style="top: 25%;"></div>
+            <div class="indicator water-indicator" style="top: 50%;"></div>
+            <div class="indicator water-indicator" style="top: 75%;"></div>
+            <div class="indicator water-indicator" style="top: 100%;"></div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-database-compat.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

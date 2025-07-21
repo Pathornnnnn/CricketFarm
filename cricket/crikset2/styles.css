@@ -1,0 +1,18 @@
+/* Define your styles here */
+.control-panel {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border: 1px solid #ddd;
+  margin: 20px;
+  width: 300px;
+  float: left;
+}
+
+.status-panel {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border: 1px solid #ddd;
+  margin: 20px;
+  width: 300px;
+  float: left;
+}

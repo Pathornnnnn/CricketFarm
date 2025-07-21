@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="control-panel">
+        <h2>Auto Mode Control</h2>
+        <div>
+            <label for="foodInterval">Food Feeding Interval (hours):</label>
+            <input type="number" id="foodInterval" min="1">
+        </div>
+        <div>
+            <label for="waterLevel">Water Level Threshold:</label>
+            <input type="number" id="waterLevel" min="0" max="100">
+        </div>
+        <div>
+            <label for="fanTemperature">Fan Temperature Threshold (°C):</label>
+            <input type="number" id="fanTemperature">
+        </div>
+        <button id="setButton">Set Values</button>
+    </div>
+    <div class="status-panel">
+        <h2>Status</h2>
+        <p>Food Next Feed Time: <span id="foodNextTime">N/A</span></p>
+        <p>Water Level: <span id="waterLevelValue">N/A</span>%</p>
+        <p>Fan Status: <span id="fanStatus">N/A</span></p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
